@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vignesh Krishnamurthy — Senior Principal Engineer</title>
+<meta name="description" content="Senior Principal Engineer specializing in backend platforms, distributed systems, and agentic AI. 13 years building high-traffic streaming infrastructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-mark">VK</span>
+    <div class="nav-links">
+      <a href="#system">System</a>
+      <a href="#services">Services</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-grid">
+    <div class="status-line">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">OPEN TO OPPORTUNITIES — AVAILABLE FROM JAN 2027</span>
+    </div>
+    <h1 class="hero-title">
+      Vignesh<br>Krishnamurthy
+    </h1>
+    <p class="hero-role">Senior Principal Engineer<br><span class="hero-role-sub">Backend Platforms &amp; Distributed Systems</span></p>
+    <p class="hero-desc">I design and run the systems behind streaming platforms used by millions —
+      authentication, billing, catalogue, and the infrastructure that keeps them online.
+      13 years in production. Currently extending that discipline into agentic AI.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="resume.pdf" class="btn btn-ghost" download>Download résumé ↓</a>
+    </div>
+  </div>
+  <div class="hero-meta">
+    <div class="meta-stat">
+      <span class="meta-num">13</span>
+      <span class="meta-label">years in production systems</span>
+    </div>
+    <div class="meta-stat">
+      <span class="meta-num">5,000</span>
+      <span class="meta-label">req/sec peak auth load handled</span>
+    </div>
+    <div class="meta-stat">
+      <span class="meta-num">15+</span>
+      <span class="meta-label">engineers led across squads</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SYSTEM TOPOLOGY (career as services) ============ -->
+<section class="system" id="system">
+  <div class="section-head">
+    <span class="eyebrow">// career.topology</span>
+    <h2>A career, rendered as a system</h2>
+    <p class="section-sub">Six services. Each one shipped, scaled, and handed off clean. Click a node for details.</p>
+  </div>
+
+  <div class="topology-wrap">
+    <svg id="topology-svg" viewBox="0 0 1280 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Career topology diagram showing six roles as connected service nodes">
+      <!-- connection lines drawn by JS for animation control, base paths here -->
+      <g class="conn-lines" id="conn-lines"></g>
+      <g class="nodes" id="nodes"></g>
+    </svg>
+  </div>
+
+  <div class="node-detail" id="node-detail">
+    <div class="node-detail-empty">
+      <span class="blink">▍</span> select a service node above
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT I BUILD / SERVICES ============ -->
+<section class="services" id="services">
+  <div class="section-head">
+    <span class="eyebrow">// capabilities.list</span>
+    <h2>What I build</h2>
+  </div>
+  <div class="service-grid">
+
+    <article class="service-card">
+      <span class="service-tag">AUTH &amp; IDENTITY</span>
+      <h3>Authentication platforms at scale</h3>
+      <p>Built and ran the IDP for Hubbl's full platform — OAuth2, JWT, API-key strategies handling
+        5,000 req/sec at peak, 1,500 sustained. Separately, designed a token-exchange service that cut
+        Auth0 cost by 30% and load by 50–60% through clean authn/authz separation.</p>
+    </article>
+
+    <article class="service-card">
+      <span class="service-tag">EVENT-DRIVEN SYSTEMS</span>
+      <h3>Kafka-driven subscription &amp; billing</h3>
+      <p>Architected the subscription management backbone for Binge — Kafka-driven, async,
+        engineered so a user clicking "subscribe" gets confirmation within 30 seconds end to end,
+        every time, at production scale.</p>
+    </article>
+
+    <article class="service-card">
+      <span class="service-tag">OBSERVABILITY</span>
+      <h3>Production visibility &amp; incident response</h3>
+      <p>Built the New Relic observability suite from scratch — dashboards, synthetic monitors, alerting
+        wired into Slack — delivering incident notifications within 5 minutes of detection. Stood as primary
+        escalation point for production incidents across the platform.</p>
+    </article>
+
+    <article class="service-card">
+      <span class="service-tag">PLATFORM MIGRATION</span>
+      <h3>Cloud-native infrastructure</h3>
+      <p>Led the migration of 20+ services from EC2 to Kubernetes for Kayo Sports, giving the platform
+        auto-scaling, faster rollbacks, and the elasticity to absorb live sports traffic spikes without
+        manual capacity planning.</p>
+    </article>
+
+    <article class="service-card">
+      <span class="service-tag">SECURITY</span>
+      <h3>Security partnership, not just patching</h3>
+      <p>Partnered directly with external pen-test teams, providing API specs and platform context
+        for annual assessments. Co-ordinated remediation of every critical finding — zero carry-over
+        between cycles, every year.</p>
+    </article>
+
+    <article class="service-card service-card-ai">
+      <span class="service-tag service-tag-accent">AGENTIC AI</span>
+      <h3>Now building: AI-native tooling</h3>
+      <p>Extending 13 years of backend discipline into agentic systems — Spring AI, LangChain4j, and
+        Ollama, applied to real problems rather than demos. See the projects below.</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ STACK ============ -->
+<section class="stack" id="stack">
+  <div class="section-head">
+    <span class="eyebrow">// stack.deps</span>
+    <h2>Stack</h2>
+  </div>
+  <div class="stack-grid">
+    <div class="stack-col">
+      <h4>Languages</h4>
+      <ul>
+        <li>Java 17+</li>
+        <li>Kotlin</li>
+        <li>Python</li>
+        <li>JavaScript</li>
+      </ul>
+    </div>
+    <div class="stack-col">
+      <h4>Frameworks</h4>
+      <ul>
+        <li>Spring Boot 3.x</li>
+        <li>Spring Security</li>
+        <li>Spring AI</li>
+        <li>LangChain4j</li>
+      </ul>
+    </div>
+    <div class="stack-col">
+      <h4>Cloud &amp; Infra</h4>
+      <ul>
+        <li>AWS (EC2, S3, SQS/SNS, Step Functions)</li>
+        <li>Kubernetes</li>
+        <li>Docker</li>
+        <li>Terraform</li>
+      </ul>
+    </div>
+    <div class="stack-col">
+      <h4>Data &amp; Messaging</h4>
+      <ul>
+        <li>Kafka</li>
+        <li>PostgreSQL</li>
+        <li>DynamoDB</li>
+        <li>Redis</li>
+      </ul>
+    </div>
+    <div class="stack-col">
+      <h4>AI &amp; Agentic</h4>
+      <ul>
+        <li>Spring AI</li>
+        <li>LangChain4j</li>
+        <li>Ollama</li>
+        <li>MCP</li>
+      </ul>
+    </div>
+    <div class="stack-col">
+      <h4>Observability</h4>
+      <ul>
+        <li>New Relic</li>
+        <li>Distributed tracing</li>
+        <li>SLO/SLA design</li>
+        <li>PagerDuty-style on-call</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="projects" id="projects">
+  <div class="section-head">
+    <span class="eyebrow">// projects.personal</span>
+    <h2>Side builds</h2>
+    <p class="section-sub">What I work on after hours — mostly an excuse to get hands-on with agentic AI.</p>
+  </div>
+
+  <div class="project-grid">
+    <article class="project-card">
+      <div class="project-card-head">
+        <h3>Expense Analyser</h3>
+        <span class="project-status">ACTIVE</span>
+      </div>
+      <p class="project-stack">Spring Boot 3 · React · Ollama · LangChain4j · PostgreSQL</p>
+      <p>An AI-powered expense tool that runs a local LLM end to end — natural-language categorisation,
+        a ReAct agent loop for multi-step reasoning over financial data, and early RAG patterns for
+        personalised insight generation. No cloud LLM calls; everything runs on Ollama.</p>
+    </article>
+
+    <article class="project-card">
+      <div class="project-card-head">
+        <h3>HomeTable</h3>
+        <span class="project-status">ACTIVE</span>
+      </div>
+      <p class="project-stack">Spring Boot 3 · Kubernetes · PostgreSQL · Kafka · AWS</p>
+      <p>A hyperlocal home-food marketplace concept — event-driven microservices backend, CQRS and
+        outbox pattern across seller, order, and payment domains, deployed on Kubernetes.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<footer class="contact" id="contact">
+  <div class="contact-inner">
+    <span class="eyebrow">// contact.init</span>
+    <h2>Let's talk</h2>
+    <p class="contact-desc">Looking for senior IC or tech-lead roles where backend depth and
+      AI-augmented delivery both matter. Based in Sydney.</p>
+    <div class="contact-links">
+      <a href="mailto:vignesh_krishnamurthy@outlook.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">vignesh_krishnamurthy@outlook.com</span>
+      </a>
+      <a href="https://linkedin.com/in/vignesh-krishnamurthy" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-value">/in/vignesh-krishnamurthy</span>
+      </a>
+      <a href="https://github.com/vignesh-krishnamurthy" class="contact-link" target="_blank" rel="noopener">
+        <span class="contact-link-label">GitHub</span>
+        <span class="contact-link-value">/vignesh-krishnamurthy</span>
+      </a>
+      <span class="contact-link contact-link-static">
+        <span class="contact-link-label">Phone</span>
+        <span class="contact-link-value">+61 478 914 190</span>
+      </span>
+    </div>
+  </div>
+  <div class="contact-footer">
+    <span>© 2026 Vignesh Krishnamurthy</span>
+    <span class="contact-footer-uptime">system status: <span class="uptime-green">operational</span></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
