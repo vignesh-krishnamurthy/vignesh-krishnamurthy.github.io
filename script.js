@@ -6,7 +6,8 @@ const careerNodes = [
     id: 'aris',
     label: 'Aris Global',
     sub: 'Jul 2013–Apr 2015',
-    x: 120, y: 150,
+    monogram: 'AG',
+    x: 130, y: 150,
     title: 'Software Engineer',
     company: 'Aris Global — Enterprise Life Sciences Applications',
     period: 'July 2013 – April 2015',
@@ -19,7 +20,8 @@ const careerNodes = [
     id: 'cisco',
     label: 'Cisco Systems',
     sub: 'Apr 2015–Sep 2018',
-    x: 320, y: 340,
+    monogram: 'CS',
+    x: 350, y: 340,
     title: 'Senior Software Engineer',
     company: 'Cisco Systems — Wireless LAN Controllers (RRM)',
     period: 'April 2015 – September 2018',
@@ -33,7 +35,8 @@ const careerNodes = [
     id: 'fair',
     label: 'Fair Consulting',
     sub: 'Nov 2018–Oct 2019',
-    x: 520, y: 150,
+    monogram: 'FC',
+    x: 570, y: 150,
     title: 'Senior Software Engineer',
     company: 'Fair Consulting Group — FluentCommerce OMS',
     period: 'November 2018 – October 2019',
@@ -46,7 +49,8 @@ const careerNodes = [
     id: 'kayo',
     label: 'Kayo Sports',
     sub: '2019–2021 · Foxtel',
-    x: 740, y: 340,
+    monogram: 'K',
+    x: 800, y: 340,
     title: 'Senior Software Engineer',
     company: 'Foxtel — Kayo Sports',
     period: '2019 – 2021',
@@ -60,7 +64,8 @@ const careerNodes = [
     id: 'binge',
     label: 'Binge',
     sub: '2021–2022 · Foxtel',
-    x: 940, y: 150,
+    monogram: 'B',
+    x: 1020, y: 150,
     title: 'Technical Lead',
     company: 'Foxtel — Binge',
     period: '2021 – 2022',
@@ -74,8 +79,9 @@ const careerNodes = [
     id: 'hubbl',
     label: 'Hubbl',
     sub: '2022–Present · Foxtel',
-    x: 1140, y: 340,
-    title: 'Senior Principal Engineer',
+    monogram: 'H',
+    x: 1250, y: 340,
+    title: 'Principal Engineer',
     company: 'Foxtel — Hubbl',
     period: '2022 – Present',
     bullets: [
@@ -123,16 +129,39 @@ function renderTopology() {
     g.setAttribute('aria-label', `${node.title} at ${node.company.split('—')[0].trim()}`);
     g.setAttribute('data-id', node.id);
 
+    // Outer ring (decorative, expands on hover/active)
+    const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    ring.setAttribute('cx', node.x);
+    ring.setAttribute('cy', node.y);
+    ring.setAttribute('r', 34);
+    ring.setAttribute('class', 'topo-node-ring');
+    g.appendChild(ring);
+
+    // Main badge circle
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', node.x);
     circle.setAttribute('cy', node.y);
-    circle.setAttribute('r', 38);
+    circle.setAttribute('r', 28);
     circle.setAttribute('class', 'topo-node-circle');
     g.appendChild(circle);
 
+    // Monogram inside the badge
+    const mono = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    mono.setAttribute('x', node.x);
+    mono.setAttribute('y', node.y + 1);
+    mono.setAttribute('text-anchor', 'middle');
+    mono.setAttribute('dominant-baseline', 'central');
+    mono.setAttribute('class', 'topo-node-monogram');
+    mono.textContent = node.monogram;
+    g.appendChild(mono);
+
+    // Company label — sits below the badge, never overlaps it
+    const labelY = node.y > 240 ? node.y + 56 : node.y - 46;
+    const subY = node.y > 240 ? node.y + 74 : node.y - 30;
+
     const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     label.setAttribute('x', node.x);
-    label.setAttribute('y', node.y - 2);
+    label.setAttribute('y', labelY);
     label.setAttribute('text-anchor', 'middle');
     label.setAttribute('class', 'topo-node-label');
     label.textContent = node.label;
@@ -140,7 +169,7 @@ function renderTopology() {
 
     const sub = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     sub.setAttribute('x', node.x);
-    sub.setAttribute('y', node.y + 14);
+    sub.setAttribute('y', subY);
     sub.setAttribute('text-anchor', 'middle');
     sub.setAttribute('class', 'topo-node-sub');
     sub.textContent = node.sub;

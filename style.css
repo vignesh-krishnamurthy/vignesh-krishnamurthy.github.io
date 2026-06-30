@@ -230,21 +230,51 @@ img { max-width: 100%; display: block; }
   padding: 24px;
   overflow-x: auto;
 }
-#topology-svg { width: 100%; height: auto; min-width: 640px; display: block; }
+#topology-svg { width: 100%; height: auto; min-width: 680px; display: block; }
 
+.topo-node { cursor: pointer; outline: none; }
+.topo-node text { pointer-events: none; }
+
+/* Decorative outer ring — subtle, expands slightly on hover/active */
+.topo-node-ring {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1px;
+  transition: stroke 0.2s ease, r 0.2s ease;
+}
+.topo-node:hover .topo-node-ring,
+.topo-node.active .topo-node-ring {
+  stroke: rgba(79, 150, 132, 0.4);
+  r: 37;
+}
+
+/* Solid badge circle holding the monogram */
 .topo-node-circle {
   fill: var(--ink-soft);
   stroke: var(--teal-bright);
-  stroke-width: 1.5;
-  cursor: pointer;
+  stroke-width: 1.5px;
   transition: fill 0.2s ease, stroke-width 0.2s ease;
 }
 .topo-node:hover .topo-node-circle,
 .topo-node.active .topo-node-circle {
   fill: var(--teal-bright);
-  stroke-width: 2.5;
+  stroke-width: 2px;
 }
-.topo-node text { pointer-events: none; }
+
+.topo-node-monogram {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  fill: var(--paper);
+  transition: fill 0.2s ease;
+}
+.topo-node.active .topo-node-monogram,
+.topo-node:hover .topo-node-monogram {
+  fill: var(--ink);
+}
+
+/* Labels sit clear of the badge, never overlapping */
 .topo-node-label {
   font-family: var(--font-mono);
   font-size: 13px;
@@ -253,15 +283,14 @@ img { max-width: 100%; display: block; }
 }
 .topo-node-sub {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   fill: var(--label-gray);
 }
-.topo-node.active .topo-node-label { fill: var(--ink); }
-.topo-node.active .topo-node-sub { fill: var(--ink); opacity: 0.7; }
+.topo-node.active .topo-node-label { fill: var(--teal-bright); }
 
 .conn-line {
   stroke: var(--line);
-  stroke-width: 1.5;
+  stroke-width: 1.5px;
   fill: none;
 }
 .conn-line-active { stroke: var(--teal-bright); }
@@ -510,7 +539,8 @@ a.contact-link:nth-child(odd):hover { padding-right: 12px; padding-left: 4px; }
 }
 
 /* Focus visibility */
-a:focus-visible, .topo-node:focus-visible .topo-node-circle {
-  outline: 2px solid var(--teal-bright);
-  outline-offset: 3px;
+a:focus-visible { outline: 2px solid var(--teal-bright); outline-offset: 3px; }
+.topo-node:focus-visible .topo-node-ring {
+  stroke: var(--teal-bright);
+  stroke-width: 2px;
 }
