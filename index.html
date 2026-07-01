@@ -63,18 +63,23 @@
   </div>
 </header>
 
-<!-- ============ CAREER LADDER ============ -->
+<!-- ============ CAREER TIMELINE ============ -->
 <section class="system" id="system">
   <div class="section-head">
-    <span class="eyebrow">// career.ladder</span>
-    <h2>A career, built level by level</h2>
-    <p class="section-sub">Click any role to see what I built there.</p>
+    <span class="eyebrow">// career.timeline</span>
+    <h2>13 years in production</h2>
+    <p class="section-sub">Click any company to see what I built there.</p>
   </div>
 
-  <div class="ladder-wrap">
-    <div class="ladder-axis-label ladder-axis-top">Most recent</div>
-    <div class="ladder" id="career-ladder"></div>
-    <div class="ladder-axis-label ladder-axis-bottom">Starting out</div>
+  <div class="tl-wrap">
+    <!-- Horizontal track with nodes -->
+    <div class="tl-scroll">
+      <div class="tl-line"></div>
+      <div class="tl-nodes" id="tl-track"></div>
+    </div>
+
+    <!-- Detail panel below -->
+    <div class="tl-detail" id="tl-detail"></div>
   </div>
 </section>
 

@@ -224,174 +224,206 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============================================
-   CAREER LADDER
+   CAREER TIMELINE
    ============================================ */
-.ladder-wrap {
+.tl-wrap {
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 32px;
+}
+
+/* Scrollable track so it works on narrow screens */
+.tl-scroll {
   position: relative;
+  overflow-x: auto;
+  padding: 80px 0 80px;
+  -webkit-overflow-scrolling: touch;
 }
 
-.ladder-axis-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.07em;
-  color: var(--label-gray);
-  margin-left: 52px;
+/* The horizontal line */
+.tl-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--line);
+  transform: translateY(-50%);
 }
-.ladder-axis-top { padding-bottom: 14px; }
-.ladder-axis-bottom { padding-top: 14px; }
 
-.ladder { display: flex; flex-direction: column; }
-
-.ladder-row {
+/* Nodes row — evenly spaced */
+.tl-nodes {
   display: flex;
-  align-items: stretch;
-  gap: 20px;
-  cursor: pointer;
+  justify-content: space-between;
+  align-items: center;
   position: relative;
+  min-width: 640px;
 }
 
-/* ── Rail ── */
-.ladder-rail {
+/* Each node column */
+.tl-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-shrink: 0;
-  width: 32px;
-  padding-top: 26px;
-}
-
-.ladder-node {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid var(--label-gray);
-  background: var(--ink);
-  flex-shrink: 0;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
-  z-index: 1;
-}
-.ladder-row-active .ladder-node,
-.ladder-row:hover .ladder-node {
-  border-color: var(--teal-bright);
-  background: var(--teal-bright);
-  transform: scale(1.25);
-}
-
-.ladder-connector {
-  width: 2px;
+  cursor: pointer;
   flex: 1;
-  min-height: 16px;
-  background: var(--line);
-  margin-top: 4px;
-}
-.ladder-row-active .ladder-connector { background: rgba(79,150,132,0.3); }
-
-/* ── Row body: card + expandable detail side by side ── */
-.ladder-row-body {
-  display: flex;
-  align-items: flex-start;
   gap: 0;
-  flex: 1;
-  padding: 10px 0;
-  min-width: 0;
+  outline: none;
 }
 
-/* ── Card (uniform width, always visible) ── */
-.ladder-card {
-  width: 400px;
-  flex-shrink: 0;
-  background: var(--ink-soft);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.ladder-row:hover .ladder-card { border-color: rgba(79,150,132,0.35); }
-.ladder-row-active .ladder-card {
-  border-color: var(--teal-bright);
-  border-right: none;
-  border-radius: 8px 0 0 8px;
-  box-shadow: none;
-}
-
-.ladder-card-head { padding: 18px 22px 16px; }
-.ladder-card-meta {
+/* Labels above the line */
+.tl-label-above {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
+  gap: 4px;
+  margin-bottom: 14px;
+  min-height: 52px;
+  justify-content: flex-end;
 }
-.ladder-company {
+
+/* Labels below the line */
+.tl-label-below {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+  min-height: 52px;
+  justify-content: flex-start;
+}
+
+.tl-label-title { opacity: 0.65; }
+.tl-item:hover .tl-label-title,
+.tl-item-active .tl-label-title { opacity: 1; }
+
+.tl-company {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--paper);
+  text-align: center;
+  line-height: 1.3;
+  transition: color 0.2s ease;
 }
-.ladder-tag {
+.tl-item-active .tl-company { color: var(--teal-bright); }
+.tl-item:hover .tl-company { color: var(--teal-bright); }
+
+.tl-period {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
+  color: var(--label-gray);
+  text-align: center;
+}
+
+.tl-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--label-gray);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.tl-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
   letter-spacing: 0.07em;
   color: var(--teal-bright);
   border: 1px solid rgba(79,150,132,0.5);
-  padding: 2px 8px;
+  padding: 1px 6px;
   border-radius: 3px;
+  margin-top: 2px;
 }
-.ladder-card-sub {
+
+/* The dot sitting on the line */
+.tl-dot-wrap {
+  position: relative;
+  z-index: 2;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.tl-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--label-gray);
+  background: var(--ink);
+  transition: border-color 0.2s ease, background 0.2s ease,
+              transform 0.2s ease, box-shadow 0.2s ease;
+}
+.tl-item:hover .tl-dot {
+  border-color: var(--teal-bright);
+  transform: scale(1.2);
+}
+.tl-item-active .tl-dot {
+  border-color: var(--teal-bright);
+  background: var(--teal-bright);
+  transform: scale(1.3);
+  box-shadow: 0 0 0 4px rgba(79,150,132,0.2);
+}
+
+/* ── Detail panel below the timeline ── */
+.tl-detail {
+  margin-top: 8px;
+  min-height: 180px;
+  background: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--teal-bright);
+  border-radius: 6px;
+  padding: 28px 32px;
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tl-detail-head { margin-bottom: 20px; }
+
+.tl-detail-company {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--paper);
+  margin-bottom: 6px;
+}
+
+.tl-detail-role {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   flex-wrap: wrap;
 }
-.ladder-title {
+
+.tl-detail-title {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--label-gray);
 }
-.ladder-period {
+
+.tl-detail-period {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   color: var(--teal-bright);
 }
 
-/* ── Detail panel slides in to the right ── */
-.ladder-detail {
-  flex: 1;
-  min-width: 0;
-  max-width: 0;
-  overflow: hidden;
-  background: var(--ink-soft);
-  border: 1px solid var(--teal-bright);
-  border-left: none;
-  border-radius: 0 8px 8px 0;
-  transition: max-width 0.35s ease, padding 0.25s ease, opacity 0.25s ease;
-  padding: 0;
-  opacity: 0;
-  align-self: stretch;
+.tl-bullets { display: flex; flex-direction: column; gap: 12px; list-style: none; }
+.tl-bullets li {
   display: flex;
-  align-items: flex-start;
+  gap: 12px;
+  font-size: 14.5px;
+  color: rgba(245,243,237,0.8);
+  line-height: 1.6;
 }
-.ladder-row-active .ladder-detail {
-  max-width: 700px;
-  padding: 18px 22px 20px;
-  opacity: 1;
-}
-
-.ladder-bullets { display: flex; flex-direction: column; gap: 10px; list-style: none; min-width: 320px; }
-.ladder-bullets li {
-  display: flex;
-  gap: 10px;
-  font-size: 13.5px;
-  color: rgba(245,243,237,0.78);
-  line-height: 1.58;
-}
-.ladder-bullets li::before {
+.tl-bullets li::before {
   content: '→';
   color: var(--teal-bright);
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 /* ============================================
@@ -594,29 +626,13 @@ a.contact-link:nth-child(odd):hover { padding-right: 12px; padding-left: 4px; }
   .contact-link:nth-child(even) { padding-left: 4px; }
   .contact-footer { flex-direction: column; gap: 8px; }
 
-  /* Ladder: stack detail below card on small screens */
-  .ladder-row-body { flex-direction: column; }
-  .ladder-card { width: 100%; }
-  .ladder-row-active .ladder-card {
-    border-right: 1px solid var(--teal-bright);
-    border-bottom: none;
-    border-radius: 8px 8px 0 0;
-  }
-  .ladder-detail {
-    max-width: 100%;
-    max-height: 0;
-    border-left: 1px solid var(--teal-bright);
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    transition: max-height 0.35s ease, padding 0.25s ease, opacity 0.25s ease;
-  }
-  .ladder-row-active .ladder-detail {
-    max-width: 100%;
-    max-height: 600px;
-    padding: 16px 22px 20px;
-    opacity: 1;
-  }
-  .ladder-bullets { min-width: unset; }
+  /* Timeline: hint at horizontal scroll on mobile */
+  .tl-scroll { padding: 60px 0; }
+  .tl-company { font-size: 13px; }
+  .tl-title { font-size: 10px; }
+  .tl-detail { padding: 20px; }
+  .tl-detail-company { font-size: 20px; }
+  .tl-bullets li { font-size: 13.5px; }
 }
 
 @media (max-width: 480px) {
