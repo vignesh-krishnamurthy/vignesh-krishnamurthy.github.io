@@ -51,7 +51,7 @@ img { max-width: 100%; display: block; }
   margin-bottom: 14px;
 }
 
-.section-head { max-width: var(--container); margin: 0 auto 56px; padding: 0 32px; }
+.section-head { max-width: var(--container); margin: 0 auto 28px; padding: 0 32px; }
 .section-head h2 {
   font-family: var(--font-display);
   font-weight: 600;
@@ -194,25 +194,7 @@ img { max-width: 100%; display: block; }
 }
 .btn-ghost:hover { border-color: var(--paper); }
 
-.hero-meta {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  border-top: 1px solid var(--line);
-  padding-top: 32px;
-}
-.meta-stat { display: flex; flex-direction: column; gap: 4px; }
-.meta-num {
-  font-family: var(--font-mono);
-  font-size: 32px;
-  font-weight: 600;
-  color: var(--paper);
-}
-.meta-label {
-  font-size: 13px;
-  color: var(--label-gray);
-  line-height: 1.4;
-}
+
 
 /* ============================================
    SYSTEM TOPOLOGY
@@ -220,7 +202,7 @@ img { max-width: 100%; display: block; }
 .system {
   max-width: var(--container);
   margin: 0 auto;
-  padding: 90px 32px;
+  padding: 60px 32px 40px;
 }
 
 /* ============================================
@@ -617,7 +599,6 @@ a.contact-link:nth-child(odd):hover { padding-right: 12px; padding-left: 4px; }
 @media (max-width: 860px) {
   .nav-links { gap: 18px; }
   .nav-links a:not(.nav-cta) { display: none; }
-  .hero-meta { grid-template-columns: 1fr; gap: 18px; }
   .service-grid { grid-template-columns: 1fr; }
   .stack-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
   .project-grid { grid-template-columns: 1fr; }
