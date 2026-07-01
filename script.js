@@ -7,7 +7,6 @@ const careerNodes = [
     company: 'Hubbl · Foxtel',
     title: 'Principal Engineer',
     period: '2022 – Present',
-    scope: 5,   // 1-5 drives card width
     tag: 'CURRENT',
     bullets: [
       'Architected and built the authentication platform for Hubbl from the ground up — OAuth2, JWT, API-key — designed for horizontal scalability to handle 5,000 req/sec peak, 1,500 sustained.',
@@ -22,7 +21,6 @@ const careerNodes = [
     company: 'Binge · Foxtel',
     title: 'Technical Lead',
     period: '2021 – 2022',
-    scope: 4,
     tag: null,
     bullets: [
       'Architected a Kafka-driven subscription management system handling 7M+ events/day across user and billing domains, ensuring end-to-end subscription confirmation within 30 seconds at production scale.',
@@ -36,7 +34,6 @@ const careerNodes = [
     company: 'Kayo Sports · Foxtel',
     title: 'Senior Software Engineer',
     period: '2019 – 2021',
-    scope: 3,
     tag: null,
     bullets: [
       'Designed and delivered product-and-offer catalogue services used by 1M+ subscribers; modelled flexible pricing structures in PostgreSQL supporting 100+ distinct offer configurations.',
@@ -48,8 +45,7 @@ const careerNodes = [
     id: 'fair',
     company: 'Fair Consulting Group',
     title: 'Senior Software Engineer',
-    period: 'Nov 2018 – Oct 2019',
-    scope: 2,
+    period: '2018 – 2019',
     tag: null,
     bullets: [
       'Led migration from legacy OMS to FluentCommerce for 4+ enterprise clients, owning the full project lifecycle and translating custom business logic into the new platform, on time and within scope.',
@@ -60,8 +56,7 @@ const careerNodes = [
     id: 'cisco',
     company: 'Cisco Systems',
     title: 'Senior Software Engineer',
-    period: 'Apr 2015 – Sep 2018',
-    scope: 2,
+    period: '2015 – 2018',
     tag: null,
     bullets: [
       'Developed and optimised Radio Resource Management algorithms — channel selection, power control, load balancing — deployed on enterprise-scale wireless networks across 100+ sites globally.',
@@ -73,8 +68,7 @@ const careerNodes = [
     id: 'aris',
     company: 'Aris Global',
     title: 'Software Engineer',
-    period: 'Jul 2013 – Apr 2015',
-    scope: 1,
+    period: '2013 – 2015',
     tag: null,
     bullets: [
       'Delivered full-stack features across Java/Spring backend, JSF/PrimeFaces UI, and Oracle/MySQL data layers for large-scale life sciences enterprise applications.',
@@ -90,30 +84,35 @@ function renderLadder() {
   const ladder = document.getElementById('career-ladder');
 
   careerNodes.forEach((node, i) => {
-    // Width of card scales with scope (1=40%, 5=100%)
-    const cardWidthPct = 36 + (node.scope - 1) * 16; // 36%, 52%, 68%, 84%, 100%
+    const isFirst = i === 0;
+    const isLast  = i === careerNodes.length - 1;
 
     const row = document.createElement('div');
-    row.className = 'ladder-row' + (i === 0 ? ' ladder-row-active' : '');
+    row.className = 'ladder-row' + (isFirst ? ' ladder-row-active' : '');
     row.setAttribute('data-id', node.id);
+    row.setAttribute('role', 'button');
+    row.setAttribute('tabindex', '0');
+    row.setAttribute('aria-expanded', isFirst ? 'true' : 'false');
 
     row.innerHTML = `
       <div class="ladder-rail">
-        <div class="ladder-node ${i === 0 ? 'ladder-node-active' : ''}"></div>
-        ${i < careerNodes.length - 1 ? '<div class="ladder-connector"></div>' : ''}
+        <div class="ladder-node"></div>
+        ${!isLast ? '<div class="ladder-connector"></div>' : ''}
       </div>
-      <div class="ladder-card" style="width: ${cardWidthPct}%">
-        <div class="ladder-card-head">
-          <div class="ladder-card-meta">
-            <span class="ladder-company">${node.company}</span>
-            ${node.tag ? `<span class="ladder-tag">${node.tag}</span>` : ''}
-          </div>
-          <div class="ladder-card-sub">
-            <span class="ladder-title">${node.title}</span>
-            <span class="ladder-period">${node.period}</span>
+      <div class="ladder-row-body">
+        <div class="ladder-card">
+          <div class="ladder-card-head">
+            <div class="ladder-card-meta">
+              <span class="ladder-company">${node.company}</span>
+              ${node.tag ? `<span class="ladder-tag">${node.tag}</span>` : ''}
+            </div>
+            <div class="ladder-card-sub">
+              <span class="ladder-title">${node.title}</span>
+              <span class="ladder-period">${node.period}</span>
+            </div>
           </div>
         </div>
-        <div class="ladder-card-detail">
+        <div class="ladder-detail">
           <ul class="ladder-bullets">
             ${node.bullets.map(b => `<li>${b}</li>`).join('')}
           </ul>
@@ -122,6 +121,10 @@ function renderLadder() {
     `;
 
     row.addEventListener('click', () => toggleRow(node.id));
+    row.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleRow(node.id); }
+    });
+
     ladder.appendChild(row);
   });
 }
@@ -129,15 +132,15 @@ function renderLadder() {
 function toggleRow(id) {
   document.querySelectorAll('.ladder-row').forEach(row => {
     const isTarget = row.getAttribute('data-id') === id;
-    const wasActive = row.classList.contains('ladder-row-active');
-
     if (isTarget) {
-      row.classList.toggle('ladder-row-active');
-      row.querySelector('.ladder-node').classList.toggle('ladder-node-active', !wasActive);
+      const nowActive = !row.classList.contains('ladder-row-active');
+      row.classList.toggle('ladder-row-active', nowActive);
+      row.setAttribute('aria-expanded', nowActive ? 'true' : 'false');
+    } else {
+      row.classList.remove('ladder-row-active');
+      row.setAttribute('aria-expanded', 'false');
     }
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderLadder();
-});
+document.addEventListener('DOMContentLoaded', renderLadder);

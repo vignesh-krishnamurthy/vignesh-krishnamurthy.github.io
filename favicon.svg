@@ -1,4 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-<rect width="64" height="64" rx="14" fill="#0B0E14"/>
-<text x="32" y="34" text-anchor="middle" dominant-baseline="central" font-family="'IBM Plex Mono', monospace" font-weight="600" font-size="24" fill="#4F9684" letter-spacing="-1">VK</text>
+  <!-- Background pill -->
+  <rect width="64" height="64" rx="14" fill="#1F4E79"/>
+  <!-- V -->
+  <path d="M10 16 L21 42 L26 28 L17 16Z" fill="#4F9684"/>
+  <path d="M26 28 L32 42 L37 28 L26 28Z" fill="#4F9684"/>
+  <!-- K -->
+  <path d="M39 16 L39 42 L45 42 L45 31 L54 42 L61 42 L50 28 L60 16 L53 16 L45 27 L45 16Z" fill="#F5F3ED"/>
 </svg>

@@ -239,28 +239,28 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.07em;
   color: var(--label-gray);
   margin-left: 52px;
-  padding-bottom: 14px;
 }
-.ladder-axis-bottom { padding-top: 14px; padding-bottom: 0; }
+.ladder-axis-top { padding-bottom: 14px; }
+.ladder-axis-bottom { padding-top: 14px; }
 
 .ladder { display: flex; flex-direction: column; }
 
 .ladder-row {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 20px;
   cursor: pointer;
   position: relative;
 }
 
-/* ── Rail: dot + vertical line ── */
+/* ── Rail ── */
 .ladder-rail {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
   width: 32px;
-  padding-top: 22px;
+  padding-top: 26px;
 }
 
 .ladder-node {
@@ -273,7 +273,6 @@ img { max-width: 100%; display: block; }
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
   z-index: 1;
 }
-.ladder-node-active,
 .ladder-row-active .ladder-node,
 .ladder-row:hover .ladder-node {
   border-color: var(--teal-bright);
@@ -284,26 +283,38 @@ img { max-width: 100%; display: block; }
 .ladder-connector {
   width: 2px;
   flex: 1;
-  min-height: 24px;
+  min-height: 16px;
   background: var(--line);
   margin-top: 4px;
 }
 .ladder-row-active .ladder-connector { background: rgba(79,150,132,0.3); }
 
-/* ── Card ── */
+/* ── Row body: card + expandable detail side by side ── */
+.ladder-row-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  flex: 1;
+  padding: 10px 0;
+  min-width: 0;
+}
+
+/* ── Card (uniform width, always visible) ── */
 .ladder-card {
+  width: 400px;
+  flex-shrink: 0;
   background: var(--ink-soft);
   border: 1px solid var(--line);
   border-radius: 8px;
-  margin: 8px 0 8px;
   overflow: hidden;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  min-width: 220px;
 }
 .ladder-row:hover .ladder-card { border-color: rgba(79,150,132,0.35); }
 .ladder-row-active .ladder-card {
   border-color: var(--teal-bright);
-  box-shadow: 0 0 0 1px rgba(79,150,132,0.15);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  box-shadow: none;
 }
 
 .ladder-card-head { padding: 18px 22px 16px; }
@@ -345,25 +356,34 @@ img { max-width: 100%; display: block; }
   color: var(--teal-bright);
 }
 
-/* Bullets hidden by default, expand on active */
-.ladder-card-detail {
-  max-height: 0;
+/* ── Detail panel slides in to the right ── */
+.ladder-detail {
+  flex: 1;
+  min-width: 0;
+  max-width: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.25s ease;
-  padding: 0 22px;
-  border-top: 0px solid var(--line);
+  background: var(--ink-soft);
+  border: 1px solid var(--teal-bright);
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  transition: max-width 0.35s ease, padding 0.25s ease, opacity 0.25s ease;
+  padding: 0;
+  opacity: 0;
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
 }
-.ladder-row-active .ladder-card-detail {
-  max-height: 400px;
-  padding: 16px 22px 20px;
-  border-top: 1px solid var(--line);
+.ladder-row-active .ladder-detail {
+  max-width: 700px;
+  padding: 18px 22px 20px;
+  opacity: 1;
 }
 
-.ladder-bullets { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+.ladder-bullets { display: flex; flex-direction: column; gap: 10px; list-style: none; min-width: 320px; }
 .ladder-bullets li {
   display: flex;
   gap: 10px;
-  font-size: 14px;
+  font-size: 13.5px;
   color: rgba(245,243,237,0.78);
   line-height: 1.58;
 }
@@ -573,6 +593,30 @@ a.contact-link:nth-child(odd):hover { padding-right: 12px; padding-left: 4px; }
   .contact-link:nth-child(odd) { border-right: none; padding-right: 4px; }
   .contact-link:nth-child(even) { padding-left: 4px; }
   .contact-footer { flex-direction: column; gap: 8px; }
+
+  /* Ladder: stack detail below card on small screens */
+  .ladder-row-body { flex-direction: column; }
+  .ladder-card { width: 100%; }
+  .ladder-row-active .ladder-card {
+    border-right: 1px solid var(--teal-bright);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+  }
+  .ladder-detail {
+    max-width: 100%;
+    max-height: 0;
+    border-left: 1px solid var(--teal-bright);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    transition: max-height 0.35s ease, padding 0.25s ease, opacity 0.25s ease;
+  }
+  .ladder-row-active .ladder-detail {
+    max-width: 100%;
+    max-height: 600px;
+    padding: 16px 22px 20px;
+    opacity: 1;
+  }
+  .ladder-bullets { min-width: unset; }
 }
 
 @media (max-width: 480px) {
